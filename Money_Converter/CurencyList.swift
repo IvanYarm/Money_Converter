@@ -36,7 +36,7 @@ struct CurencyList: View {
                 
             
                 //Text
-                Text("Select the curency you would like to convert to:")
+                Text("Select the curency you like to convert to:")
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
                 //Curency Icons

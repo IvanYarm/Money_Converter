@@ -34,7 +34,7 @@ struct ExchangeRates: View {
 
 struct ExchangeRates_Previews: PreviewProvider {
     static var previews: some View {
-        ExchangeRates(leftImage: "goldpiece", text: "1 Gold Piece =  Golden Penies", rightImage: "goldpenny")
+        ExchangeRates(leftImage: "goldpiece", text: "1 Gold Piece = Golden Penies", rightImage: "goldpenny")
             .previewLayout(.sizeThatFits)
     }
 }

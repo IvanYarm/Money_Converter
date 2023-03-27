@@ -15,10 +15,15 @@ struct ContentView: View {
     @State var rightAmountTemp = ""
     @State var leftTyping = false
     @State var rightTyping = false
-    @State var leftCurrency: Curency = .silverPiece
-    @State var rightCurrency: Curency = .goldPiece
     
-
+    @AppStorage("left") var leftCurrencyStorage: Int = 0
+    @AppStorage("right") var rightCurrencyStarage: Int = 0
+    
+    @State var leftCurrency: Curency = Curency.allCases[0]
+    @State var rightCurrency: Curency = Curency.allCases[0]
+    
+   
+    
     
     
     @State var showSelectedCurrency = false
@@ -36,6 +41,7 @@ struct ContentView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 200)
+                    .onAppear()
                 //Curency exchange text
                 Text("Currency Exchange")
                     .font(.largeTitle)
@@ -50,6 +56,16 @@ struct ContentView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 33)
+                                .onAppear(perform: {
+                                    self.leftCurrency = Curency.allCases[self.leftCurrencyStorage]
+                                    self.rightCurrency = Curency.allCases[self.rightCurrencyStarage]
+                                })
+                                .onDisappear {
+                                    self.leftCurrencyStorage = Curency.allCases.firstIndex(of: leftCurrency) ?? 0
+                                    self.rightCurrencyStarage = Curency.allCases.firstIndex(of: rightCurrency) ?? 0
+                                    print(self.leftCurrencyStorage)
+                                    print(self.rightCurrencyStarage)
+                                }
                             //Text
                             Text(CurencyText.allCases[Curency.allCases.firstIndex(of: leftCurrency) ?? 0].rawValue)
                                 .font(.headline)
@@ -58,10 +74,13 @@ struct ContentView: View {
                         .padding(-4)
                         .onTapGesture {
                             showSelectedCurrency.toggle()
+                        
                         }
                         .sheet(isPresented: $showSelectedCurrency) {
                             CurencyList(leftCurrency: $leftCurrency, rightCurrency: $rightCurrency)
                         }
+                        
+                    
                         
                     //Text field
                         TextField("Amount", text: $leftAmount, onEditingChanged: { typing in

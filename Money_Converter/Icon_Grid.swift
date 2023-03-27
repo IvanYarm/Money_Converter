@@ -12,6 +12,8 @@ struct Icon_Grid: View {
     @State var gridLayout = [GridItem(), GridItem(), GridItem()]
     @Binding var currency: Curency
     
+    @AppStorage("currency") var storedCurrency: Int?
+    
     var body: some View {
         LazyVGrid(columns: gridLayout) {
             ForEach(0..<5) { i in

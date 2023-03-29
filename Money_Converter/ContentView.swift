@@ -22,8 +22,7 @@ struct ContentView: View {
     @State var leftCurrency: Curency = Curency.allCases[0]
     @State var rightCurrency: Curency = Curency.allCases[0]
     
-   
-    
+    @Environment(\.colorScheme) var mode
     
     
     @State var showSelectedCurrency = false
@@ -88,7 +87,7 @@ struct ContentView: View {
                             leftAmountTemp = leftAmount
                         })
                             .padding(7)
-                            .background(Color(UIColor.systemGray6))
+                            .background(self.mode == .dark ? Color(UIColor.systemBrown) : Color(UIColor.systemGray6))
                             .cornerRadius(10)
                             .keyboardType(.decimalPad )
                             .onChange(of: leftTyping ? leftAmount : leftAmountTemp) { _ in
@@ -96,6 +95,9 @@ struct ContentView: View {
                             }
                             .onChange(of: leftCurrency) { _ in
                                 leftAmount = rightCurrency.convert(amountString: rightAmount, to: leftCurrency)
+                            }
+                            .onDisappear {
+                                self.leftAmount = ""
                             }
                     }
                     
@@ -123,12 +125,12 @@ struct ContentView: View {
                             CurencyList(leftCurrency: $leftCurrency, rightCurrency: $rightCurrency)
                         }
                         //Text field
-                        TextField("Amount", text: $rightAmount, onEditingChanged: { typing in
+                        TextField("Amount", text: $rightAmount,  onEditingChanged: { typing in
                             rightTyping = typing
                             rightAmountTemp = rightAmount
                         })
                             .padding(7)
-                            .background(Color(UIColor.systemGray6))
+                            .background(self.mode == .dark ? Color(UIColor.systemBrown336389HHH) : Color(UIColor.systemGray6))
                             .cornerRadius(10)
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.decimalPad)
@@ -137,6 +139,9 @@ struct ContentView: View {
                             }
                             .onChange(of: rightCurrency) { _ in
                                 rightAmount = leftCurrency.convert(amountString: leftAmount, to: rightCurrency)
+                            }
+                            .onDisappear {
+                                self.rightAmount = ""
                             }
                         
                     }

@@ -130,7 +130,7 @@ struct ContentView: View {
                             rightAmountTemp = rightAmount
                         })
                             .padding(7)
-                            .background(self.mode == .dark ? Color(UIColor.systemBrown336389HHH) : Color(UIColor.systemGray6))
+                            .background(self.mode == .dark ? Color(UIColor.systemBrown) : Color(UIColor.systemGray6))
                             .cornerRadius(10)
                             .multilineTextAlignment(.trailing)
                             .keyboardType(.decimalPad)
